@@ -67,7 +67,7 @@ function! test#rust#cargonextest#build_args(args) abort
 endfunction
 
 function! test#rust#cargonextest#executable() abort
-  return 'cargo nextest run'
+  return 'cargo nextest run --nocapture'
 endfunction
 
 function! s:nearest_test(position) abort
