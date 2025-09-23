@@ -99,7 +99,7 @@ let test#strategy = "dispatch"
 | **Neovim VS Code**              | `neovim_vscode`                                             | Runs test commands in with VS Code terminal, keeps the focus to EditorGroup.
 | **Vim8 Terminal**               | `vimterminal`                                               | Runs test commands with `term_start()` in a split window.                                                                                                         |
 | **[Dispatch]**                  | `dispatch` `dispatch_background`                            | Runs test commands with `:Dispatch` or `:Dispatch!`.                                                                                                              |
-| **[Spawn]**                     | `spawn` `spawn_background`                                  | Runs test commands using dispatch.vim `:Spawn` or `:Spawn!`.                                                                                                      |
+| **Spawn**                       | `spawn` `spawn_background`                                  | Runs test commands using dispatch.vim `:Spawn` or `:Spawn!`.                                                                                                      |
 | **[Vimux]**                     | `vimux`                                                     | Runs test commands in a small tmux pane at the bottom of your terminal.                                                                                           |
 | **[Tslime]**                    | `tslime`                                                    | Runs test commands in a tmux pane you specify.                                                                                                                    |
 | **[Slimux]**                    | `slimux`                                                    | Runs test commands in a tmux pane you specify.                                                                                                                    |
@@ -759,6 +759,12 @@ let g:test#custom_alternate_file = function('CustomAlternateFile')
 ## Overriding test commands
 
 This is considered an advanced feature, subject to active development and further changes. It overrides the zero configuration approach, and requires you to manually configure the test runners.
+
+Enable the feature by adding this custom runner:
+
+```vim
+  let g:test#custom_runners = {'_Generic': ['VimTestJson']}
+```
 
 To provide middle ground between well-known test runners working out of the box,
 and per-user configuration, test command can also be specifying by adding a `.vimtest.json`
