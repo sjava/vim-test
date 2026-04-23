@@ -39,16 +39,18 @@ function! test#javascript#jest#build_args(args) abort
 endfunction
 
 function! test#javascript#jest#executable() abort
-  if filereadable('node_modules/.bin/jest')
-    return 'node_modules/.bin/jest'
-  else
-    return 'jest'
-  endif
+  return test#javascript#determine_executable('jest')
 endfunction
 
 function! s:nearest_test(position) abort
   let name = test#base#nearest_test(a:position, g:test#javascript#patterns)
+  let test_name = join(name['namespace'] + name['test'])
+  let has_printf = test_name =~# '\v\%[sdifojp#]'
+  if has_printf
+    let test_name = substitute(test_name, '\v\%[sdifojp#].*', '', '')
+    return (len(name['namespace']) ? '^' : '') . test_name
+  endif
   return (len(name['namespace']) ? '^' : '') .
-       \ test#base#escape_regex(join(name['namespace'] + name['test'])) .
+       \ test#base#escape_regex(test_name) .
        \ (len(name['test']) ? '$' : '')
 endfunction
